@@ -15,6 +15,7 @@
   import { toast } from "svelte-sonner";
   import * as Dialog from "$lib/components/ui/dialog/index.js";
   import { m } from "../../paraglide/messages.js";
+  import { currency } from "$lib/store/currency.js";
 
   let type: "expense" | "income" = $state("expense");
   let amount = $state("");
@@ -78,10 +79,6 @@
       richColors: true,
     });
   }
-
-  function wait(ms: number) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
 </script>
 
 <Dialog.Root bind:open>
@@ -144,7 +141,7 @@
           id="amount"
           type="number"
           bind:value={amount}
-          placeholder={m.form_ammount_placeholder()}
+          placeholder={$currency === "IDR" ? "Rp 0" : "$ 0"}
           step="0.01"
           onkeydown={(e) => {
             if (e.key === "Enter") {
